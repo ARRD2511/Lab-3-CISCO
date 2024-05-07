@@ -1,0 +1,128 @@
+COMANDOS
+
+# Primero Se Realiza la Configuración Basica de Switch como se dispone en la clase
+
+SE REALIZA LA CONFIGURACION VLANs
+- Se deshabilitan los puertos
+SW1(config)#interface range fa0/1-24
+SW1(config-if-range)#shutdown
+SW1(config-if-range)#interface range gi0/1-2
+SW1(config-if-range)#shutdown
+- Para después rehabilitarse en el modo de acceso
+SW1(config)#interface fa0/6
+SW1(config-if)#switchport mode access
+SW1(config-if)#no shutdown
+SW1(config-if)#interface fa0/13
+SW1(config-if)#switchport mode access
+SW1(config-if)#no shutdown
+- Se configura la Vlan nativa y las interfaces (Hay que hacer esto por cada switch disponible)
+SW1(config)#interface range fa0/1-5
+SW1(config-if-range)#switchport mode trunk
+SW1(config-if-range)#switchport trunk native vlan 99
+SW1(config-if-range)#no shutdown
+------------------------------------------------------------
+
+# Después se crean las Vlans dispuestas en el documento con los siguientes comandos
+
+Para cada uno se configuran los rangos y se establece la vlan en modo de acceso
+
+-SW1(config)#vlan 55
+-SW1(config-vlan)#name Servicio_Técnico
+-SW1(config-vlan)#exit
+-SW1(config)#interface range fastEthernet 0/1-2, gigabitEthernet 0/1-2
+-SW1(config-if-range)#switchport mode access
+-SW1(config-if-range)#switchport access vlan 55
+-SW1(config-if-range)#exit
+
+-SW1(config)#vlan 40
+-SW1(config-vlan)#name Profesores
+-SW1(config-vlan)#exit
+-SW1(config)#interface range fastEthernet 0/16-20
+-SW1(config-if-range)#switchport mode access
+-SW1(config-if-range)#switchport access vlan 40
+-SW1(config-if-range)#exit
+
+-SW1(config)#vlan 20
+-SW1(config-vlan)#name Estudiantes
+-SW1(config-vlan)#exit
+-SW1(config)#interface range fastEthernet 0/7-10, gigabitEthernet 0/3-4
+-SW1(config-if-range)#switchport mode access
+-SW1(config-if-range)#switchport access vlan 20
+-SW1(config-if-range)#exit
+
+-SW1(config)#vlan 35
+-SW1(config-vlan)#name Biblioteca
+-SW1(config-vlan)#exit
+-SW1(config)#interface range fastEthernet 0/11-15, gigabitEthernet 0/5-6
+-SW1(config-if-range)#switchport mode access
+-SW1(config-if-range)#switchport access vlan 35
+-SW1(config-if-range)#exit
+
+# Se crea la dirección de administración en la vlan99
+SW1(config)#interface vlan99
+SW1(config-if)#ip address 129.17.99.1 255.255.255.0
+SW1(config-if)#no shutdown
+
+# Con el siguiente comando se muestra un resumen de los Vlans para verificar su correcta creacion
+SW1#show vlan brief
+
+---------------------------------------------------------
+
+# Primero se realiza la configuración Basica del Router como se Propuso en clase
+
+#Despues se crean las Vlans y se establece su Default Gateway
+
+R1_CAM(config)#interface FastEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+
+R1_CAM(config)#interface FastEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 129.17.20.1 255.255.248.0
+
+R1_CAM(config)#interface FastEthernet0/0.35
+ encapsulation dot1Q 35
+ ip address 129.17.35.1 255.255.248.0
+
+R1_CAM(config)#interface FastEthernet0/0.40
+ encapsulation dot1Q 40
+ ip address 129.17.40.1 255.255.248.0
+
+R1_CAM(config)#interface FastEthernet0/0.50
+ encapsulation dot1Q 50
+ no ip address
+ shutdown
+
+R1_CAM(config)#interface FastEthernet0/0.55
+ encapsulation dot1Q 55
+ ip address 129.17.55.1 255.255.254.0
+
+R1_CAM(config)#interface FastEthernet0/0.99
+ encapsulation dot1Q 99 native
+ ip address 129.17.99.1 255.255.255.0
+
+R1_CAM(config)#interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+
+R1_CAM(config)#interface Serial0/2/0
+ ip address 11.131.8.1 255.255.255.252
+ clock rate 2000000
+
+R1_CAM(config)#interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+
+R1_CAM(config)#interface Vlan1
+ no ip address
+ shutdown
+
+R1_CAM(config)#router rip
+ network 11.0.0.0
+ network 129.17.0.0
+
+R1_CAM(config)#ip classless
