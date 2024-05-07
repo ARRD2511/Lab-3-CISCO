@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Universidad De la Sabana</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #003366, #0099cc);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header, main, footer {
+            width: 80%;
+            background: rgba(0, 0, 0, 0.6); /* Fondo transparente */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Añadir sombras */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 20px;
+            text-align: center;
+        }
+        header {
+            font-size: 1.5em;
+            margin-bottom: 20px; /* Espacio entre elementos */
+        }
+        img {
+            width: 150px; 
+            height: 150px;
+            margin-bottom: 10px; /* Espacio entre la imagen y el encabezado */
+        }
+        main {
+            font-size: 1.2em;
+            margin-bottom: 20px; /* Espacio entre el main y el footer */
+        }
+        .button {
+            background-color: white;
+            color: #003366; /* Azul más oscuro */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px; /* Tamaño de fuente */
+            border: 2px solid #003366; /* Color del borde */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transición más rápida */
+        }
+        .button:hover {
+            background-color: #0099cc; /* Cambiar color al pasar el ratón */
+            color: white;
+        }
+        footer {
+            font-size: 0.9em;
+            margin-top: 20px; /* Espacio entre main y footer */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="sabana.png" alt="Logo Universidad De la Sabana">
+        <h1>Bienvenido a la Universidad De la Sabana</h1>
+    </header>
+    <main>
+        <h2>Sobre nosotros</h2>
+        <p>La Universidad De la Sabana es una institución de educación superior comprometida con la excelencia académica.</p>
+        <h2>Conectar a nuestra red</h2>
+        <p>Aquí podrás validar tu conexión a nuestro servidor.</p>
+        <button class="button">Validar</button>
+    </main>
+    <footer>
+        <p>Universidad De la Sabana © 2024</p>
+    </footer>
+</body>
+</html>
